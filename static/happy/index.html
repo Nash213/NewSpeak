@@ -25,7 +25,7 @@
 
     <header class="topbar">
         <div class="logo"><span class="roundel"></span><span class="logo-bar">HappyBorough <span>London</span></span></div>
-        <div class="badge">🌳 Live police · ONS · rents · deprivation data</div>
+        <div class="badge"><span data-icon="leaf"></span> Live police · ONS · rents · deprivation data</div>
     </header>
 
     <div class="hero">
@@ -35,8 +35,8 @@
 
     <nav class="toolbar" aria-label="View options">
         <div class="seg" role="group" aria-label="Map style">
-            <button type="button" data-mode="city" class="is-on">🏙️ 3D city</button>
-            <button type="button" data-mode="map">🗺️ Map</button>
+            <button type="button" data-mode="city" class="is-on"><span data-icon="building"></span> 3D city</button>
+            <button type="button" data-mode="map"><span data-icon="map"></span> Map</button>
         </div>
         <div class="seg" role="group" aria-label="Show boroughs">
             <button type="button" data-filter="all" class="is-on">All</button>
@@ -44,9 +44,9 @@
             <button type="button" data-filter="top10">Top 10</button>
             <button type="button" data-filter="bottom5">Bottom 5</button>
         </div>
-        <button type="button" class="chip" id="toggle-live" aria-pressed="false">● Live police only</button>
-        <button type="button" class="chip is-on" id="toggle-labels" aria-pressed="true">Labels</button>
-        <button type="button" class="chip is-on" id="toggle-leaderboard" aria-pressed="true">🏆 Leaderboard</button>
+        <button type="button" class="chip" id="toggle-live" aria-pressed="false"><span data-icon="radio"></span> Live police only</button>
+        <button type="button" class="chip is-on" id="toggle-labels" aria-pressed="true"><span data-icon="tag"></span> Labels</button>
+        <button type="button" class="chip is-on" id="toggle-leaderboard" aria-pressed="true"><span data-icon="trophy"></span> Leaderboard</button>
     </nav>
 
     <aside class="panel panel-left" id="controls">
@@ -63,7 +63,7 @@
     </aside>
 
     <section class="panel detail-card" id="detail" hidden aria-live="polite">
-        <button class="detail-back" id="detail-back" type="button">← Back to overview</button>
+        <button class="detail-back" id="detail-back" type="button"><span data-icon="arrowLeft"></span> Back to overview</button>
         <div class="detail-rank" id="detail-rank"></div>
         <h3 class="detail-name" id="detail-name"></h3>
         <div id="detail-source"></div>

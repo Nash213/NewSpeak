@@ -1,12 +1,12 @@
 // One entry per /api/rankings weight. `value(b)` returns the 0-10 metric the
 // server multiplies by that weight, so FACTORS drives sliders, bars and scoring.
 export const FACTORS = [
-    { key: 'safety', param: 'w_safety', icon: '🛡️', label: 'Safety', note: 'live police data', defaultWeight: 20, value: (b) => b.safety_score },
-    { key: 'green', param: 'w_green', icon: '🌳', label: 'Parks & green space', short: 'Green space', defaultWeight: 20, value: (b) => b.green_space },
-    { key: 'transport', param: 'w_transport', icon: '🚆', label: 'Transport access', short: 'Transport', defaultWeight: 15, value: (b) => b.transport_score },
-    { key: 'happiness', param: 'w_happiness', icon: '😊', label: 'ONS wellbeing', short: 'Wellbeing', defaultWeight: 15, value: (b) => b.ons_happiness },
-    { key: 'barriers', param: 'w_barriers', icon: '🏘️', label: 'Housing access', note: 'IMD', short: 'Housing', defaultWeight: 15, value: (b) => b.imd?.housing_barriers_decile ?? 0 },
-    { key: 'affordability', param: 'w_affordability', icon: '💷', label: 'Affordable rent', short: 'Affordability', defaultWeight: 15, value: (b) => b.affordability_score ?? 0 },
+    { key: 'safety', param: 'w_safety', icon: 'shield', label: 'Safety', note: 'live police data', defaultWeight: 20, value: (b) => b.safety_score },
+    { key: 'green', param: 'w_green', icon: 'tree', label: 'Parks & green space', short: 'Green space', defaultWeight: 20, value: (b) => b.green_space },
+    { key: 'transport', param: 'w_transport', icon: 'train', label: 'Transport access', short: 'Transport', defaultWeight: 15, value: (b) => b.transport_score },
+    { key: 'happiness', param: 'w_happiness', icon: 'smile', label: 'ONS wellbeing', short: 'Wellbeing', defaultWeight: 15, value: (b) => b.ons_happiness },
+    { key: 'barriers', param: 'w_barriers', icon: 'house', label: 'Housing access', note: 'IMD', short: 'Housing', defaultWeight: 15, value: (b) => b.imd?.housing_barriers_decile ?? 0 },
+    { key: 'affordability', param: 'w_affordability', icon: 'pound', label: 'Affordable rent', short: 'Affordability', defaultWeight: 15, value: (b) => b.affordability_score ?? 0 },
 ];
 
 export const WEIGHT_KEYS = FACTORS.map((f) => f.key);

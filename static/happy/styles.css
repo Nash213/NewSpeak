@@ -531,7 +531,7 @@ body.is-ready .panel-right {
 }
 
 @media (max-width: 1280px) {
-    .badge { display: none; }
+    .topbar .badge { display: none; }
 }
 
 .toolbar {
@@ -551,6 +551,48 @@ body.is-ready .panel-right {
 }
 
 body.is-ready .toolbar { opacity: 1; }
+
+.seg button,
+.chip { white-space: nowrap; }
+.detail-card { z-index: 13; }
+
+@media (max-width: 1280px) and (min-width: 821px) {
+    .toolbar {
+        top: auto;
+        bottom: 24px;
+        left: 24px;
+        width: 300px;
+        max-width: 300px;
+        justify-content: flex-start;
+        transform: none;
+    }
+    .seg button,
+    .chip { padding: 4px 9px; font-size: 0.72rem; }
+    .panel-left { max-height: calc(100vh - 290px); overflow-y: auto; scrollbar-width: thin; }
+    .topbar .badge { display: none; }
+}
+
+.icon {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+    vertical-align: -0.22em;
+}
+
+[data-icon] { display: inline-flex; }
+.icon-factor { color: var(--blue-deep); }
+.slider-row span,
+.bar > span,
+.dx-label,
+.detail-housing,
+.sync-status,
+.badge,
+.seg button,
+.chip,
+.detail-back { display: inline-flex; align-items: center; gap: 5px; }
+.slider-row span small { margin-left: 0; }
+.dx-trend .icon { width: 0.9em; height: 0.9em; }
 
 .seg {
     display: flex;

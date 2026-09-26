@@ -1,5 +1,6 @@
 import { FACTORS, WEIGHT_KEYS, normaliseWeights } from './scoring.js';
 import { prefersReducedMotion } from './tween.js';
+import { icon } from './icons.js';
 
 export function sourceTagHtml(b) {
     return b.safety_source === 'live_api'
@@ -82,14 +83,14 @@ function escapeHtml(text) {
 function buildSliders() {
     document.getElementById('sliders').innerHTML = FACTORS.map((f) => `
         <div class="slider-group">
-            <div class="slider-row"><span>${f.icon} ${escapeHtml(f.label)}${f.note ? ` <small>${escapeHtml(f.note)}</small>` : ''}</span><strong id="v-${f.key}"></strong></div>
+            <div class="slider-row"><span>${icon(f.icon, 'icon-factor')} ${escapeHtml(f.label)}${f.note ? ` <small>${escapeHtml(f.note)}</small>` : ''}</span><strong id="v-${f.key}"></strong></div>
             <input type="range" id="w-${f.key}" data-key="${f.key}" min="0" max="100" value="${f.defaultWeight}" aria-label="${escapeHtml(f.label)} weight">
         </div>`).join('');
 }
 
 function buildDetailBars() {
     document.getElementById('detail-bars').innerHTML = FACTORS.map((f) => `
-        <div class="bar" data-key="${f.key}"><span>${f.icon} ${escapeHtml(f.short || f.label)}</span><div class="bar-track"><div class="bar-fill"></div></div><strong></strong></div>`).join('');
+        <div class="bar" data-key="${f.key}"><span>${icon(f.icon, 'icon-factor')} ${escapeHtml(f.short || f.label)}</span><div class="bar-track"><div class="bar-fill"></div></div><strong></strong></div>`).join('');
 }
 
 export function initSliders({ onInput, onCommit }) {
@@ -133,8 +134,8 @@ export function showDetail(b, rank, { opening = false } = {}) {
     document.getElementById('detail-name').textContent = b.borough;
     document.getElementById('detail-source').innerHTML = sourceTagHtml(b);
     document.getElementById('detail-housing').innerHTML = b.housing_apps > 0
-        ? `🏗️ <strong>${b.housing_approval_rate}%</strong> planning approval · ${b.housing_apps.toLocaleString()} applications`
-        : '🏗️ No planning data';
+        ? `${icon('construction')} <strong>${b.housing_approval_rate}%</strong> planning approval · ${b.housing_apps.toLocaleString()} applications`
+        : `${icon('construction')} No planning data`;
     document.getElementById('detail-extras').innerHTML = detailCardExtras(b);
 
     const factorByKey = new Map(FACTORS.map((f) => [f.key, f]));
@@ -157,16 +158,16 @@ export function detailCardExtras(b) {
     const cells = [];
     const rent = b.rent;
     if (rent && rent.typical_monthly) {
-        cells.push(`<div class="dx-cell"><span class="dx-label">💷 Typical rent${estimatedTag(rent.estimated)}</span>
+        cells.push(`<div class="dx-cell"><span class="dx-label">${icon('banknote')} Typical rent${estimatedTag(rent.estimated)}</span>
             <strong class="dx-value">£${Math.round(rent.typical_monthly).toLocaleString()}<small>/mo</small></strong>
             ${rent.rent_1bed ? `<span class="dx-sub">1-bed £${Math.round(rent.rent_1bed).toLocaleString()} · 2-bed £${Math.round(rent.rent_2bed || 0).toLocaleString()}</span>` : ''}</div>`);
     }
     const wb = b.wellbeing;
     if (wb) {
         const trend = wb.life_satisfaction_trend;
-        const arrow = typeof trend === 'number' ? (trend > 0 ? '▲' : trend < 0 ? '▼' : '■') : '';
+        const arrow = typeof trend === 'number' ? icon(trend > 0 ? 'up' : trend < 0 ? 'down' : 'flat') : '';
         const trendCls = typeof trend === 'number' ? (trend > 0 ? 'dx-up' : trend < 0 ? 'dx-down' : '') : '';
-        cells.push(`<div class="dx-cell"><span class="dx-label">😊 Life satisfaction${estimatedTag(wb.estimated)}</span>
+        cells.push(`<div class="dx-cell"><span class="dx-label">${icon('heart')} Life satisfaction${estimatedTag(wb.estimated)}</span>
             <strong class="dx-value">${wb.life_satisfaction ?? '–'}<small>/10</small>${arrow ? ` <span class="dx-trend ${trendCls}">${arrow}</span>` : ''}</strong>
             <span class="dx-sub">Anxiety ${wb.anxiety ?? '–'} · Worthwhile ${wb.worthwhile ?? '–'}${wb.latest_year ? ` · ${escapeHtml(wb.latest_year)}` : ''}</span></div>`);
     }
@@ -177,7 +178,7 @@ export function detailCardExtras(b) {
             ['Crime', imd.crime_decile], ['Environment', imd.living_environment_decile],
         ].filter(([, v]) => v != null)
             .map(([name, v]) => `<span class="dx-chip" style="--d:${v}">${name} <b>${+Number(v).toFixed(1)}</b></span>`).join('');
-        cells.push(`<div class="dx-cell dx-wide"><span class="dx-label">📊 Deprivation deciles <small>(10 = least deprived)</small></span>
+        cells.push(`<div class="dx-cell dx-wide"><span class="dx-label">${icon('chart')} Deprivation deciles <small>(10 = least deprived)</small></span>
             <strong class="dx-value">${+Number(imd.overall_decile).toFixed(1)}<small>/10 overall</small></strong>
             <div class="dx-chips">${chips}</div></div>`);
     }
@@ -191,5 +192,6 @@ export function hideDetail() {
 export function setSyncStatus(state, text) {
     const el = document.getElementById('sync-status');
     el.dataset.state = state;
-    el.textContent = text;
+    const glyph = state === 'ok' ? icon('check') : state === 'warn' ? icon('alert') : '';
+    el.innerHTML = `${glyph} ${escapeHtml(text)}`;
 }
